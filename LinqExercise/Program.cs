@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 
 namespace LinqExercise
@@ -22,17 +23,84 @@ namespace LinqExercise
 
             //TODO: Print the Sum of numbers
 
+            Console.WriteLine("The sum of numbers is: ");
+
+           int sum =  numbers.Sum(x => x);
+
+           Console.WriteLine(sum);
+            Console.WriteLine("------------------------------------------");
+
             //TODO: Print the Average of numbers
+
+
+            Console.WriteLine("The average of the numbers is: ");
+
+            double average = numbers.Average(x => x);
+            Console.WriteLine(average);
+            Console.WriteLine("____________________________________________________");
+           
 
             //TODO: Order numbers in ascending order and print to the console
 
+          Console.WriteLine("Ordering the numbers in ascending order: ");
+          var ascent =  numbers.OrderBy(x => x);
+
+            foreach (int x in ascent)
+            {
+                Console.WriteLine(x);
+             }
+
+            Console.WriteLine("___________________");
+
             //TODO: Order numbers in decsending order and print to the console
 
+            Console.WriteLine("Ordering the numbers in descending order: ");
+
+            var descent = numbers.OrderByDescending(x => x);
+
+            foreach (int x in descent)
+            {
+                Console.WriteLine(x);
+            }
+
+            Console.WriteLine("_____________________________________________________");
             //TODO: Print to the console only the numbers greater than 6
+
+            Console.WriteLine("Here are all of the numbers greater than 6: ");
+
+            var greaterThanSix = numbers.Where(x => x > 6);   
+
+            foreach (int x in greaterThanSix)
+            { 
+                Console.WriteLine(x);
+            }
+
+            Console.WriteLine("_____________________________________________________");
 
             //TODO: Order numbers in any order (acsending or desc) but only print 4 of them **foreach loop only!**
 
+            Console.WriteLine("Here are the first 4 numbers in ascending order: ");
+
+            foreach (int x in ascent.Take(4)) {
+                Console.WriteLine(x);
+            }
+
+            Console.WriteLine("_____________________________________________________");
+
+
             //TODO: Change the value at index 4 to your age, then print the numbers in decsending order
+
+            Console.WriteLine("I inserted the age of Yoda at index 4, but then printed the numbers in descending order. Because Yoda is very old, his age appeared first in the descening list.");
+
+            numbers[4] = 900;
+
+            foreach (int x in numbers.OrderByDescending(num => num))
+            { 
+                Console.WriteLine(x);
+            }
+            Console.WriteLine("_____________________________________________________");
+
+
 
             // List of employees ****Do not remove this****
             var employees = CreateEmployees();
