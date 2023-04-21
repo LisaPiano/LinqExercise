@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Tracing;
 using System.Globalization;
 using System.Linq;
 
@@ -25,18 +26,14 @@ namespace LinqExercise
 
             Console.WriteLine("The sum of numbers is: ");
 
-           int sum =  numbers.Sum(x => x);
-
-           Console.WriteLine(sum);
+           Console.WriteLine(numbers.Sum());
             Console.WriteLine("------------------------------------------");
 
             //TODO: Print the Average of numbers
 
 
             Console.WriteLine("The average of the numbers is: ");
-
-            double average = numbers.Average(x => x);
-            Console.WriteLine(average);
+            Console.WriteLine(numbers.Average());
             Console.WriteLine("____________________________________________________");
            
 
@@ -92,7 +89,7 @@ namespace LinqExercise
 
             Console.WriteLine("I inserted the age of Yoda at index 4, but then printed the numbers in descending order. Because Yoda is very old, his age appeared first in the descening list.");
 
-            numbers[4] = 900;
+            numbers.SetValue(900, 4);
 
             foreach (int x in numbers.OrderByDescending(num => num))
             { 
@@ -107,12 +104,59 @@ namespace LinqExercise
 
             //TODO: Print all the employees' FullName properties to the console only if their FirstName starts with a C OR an S and order this in ascending order by FirstName.
 
-            //TODO: Print all the employees' FullName and Age who are over the age 26 to the console and order this by Age first and then by FirstName in the same result.
+            Console.WriteLine("Here, I will print in ascending order the full names of the employees whose first names begin with either C or S: ");
+            var names = employees.Where(name => name.FirstName[0] == 'C' || name.FirstName[0] == 'S').OrderBy(num => num.FirstName).ToList();
+
+
+            foreach (var name in names)
+            { 
+                Console.WriteLine(name.FirstName);
+            }
+  
+
+            Console.WriteLine("_____________________________________________________");
+
+            //TODO: Print all the employees' /*FullName*/ and Age who are over the age 26 to the console and order this by Age first and then by FirstName in the same result.
+            Console.WriteLine("FullName and Age of employees who are over 26 and ordered by Age and then by FirstName");
+
+            var overTwentySix = employees.Where(name => name.Age > 26).OrderBy(num => num.Age).ThenBy(person => person.FirstName);
+
+            foreach (var name in overTwentySix)
+            {
+                Console.WriteLine($"FullName: {name.FullName}, Age: {name.Age}");
+            }
+
+
+
+
+
+            Console.WriteLine("_____________________________________________________");
+
+
+
 
             //TODO: Print the Sum and then the Average of the employees' YearsOfExperience if their YOE is less than or equal to 10 AND Age is greater than 35.
 
-            //TODO: Add an employee to the end of the list without using employees.Add()
+            Console.WriteLine("Sum and Average of the employees' Years of Experience, if their Years of experience is <= 10 and their age is over 35.");
 
+            var filteredEmployees = employees.Where(employee => employee.YearsOfExperience <= 10 && employee.Age > 35);
+
+            Console.WriteLine($"The sum of the employees' Years of Experience is: {filteredEmployees.Sum(person => person.YearsOfExperience)}");
+            Console.WriteLine($"The average of the employees' Years of Experience is: {filteredEmployees.Average(person => person.YearsOfExperience)}");
+
+            Console.WriteLine("_____________________________________________________");
+
+            Console.WriteLine("Add an employee to the end of the list without using employees.Add()");
+
+            employees = employees.Append(new Employee("Lisa", "Campi Walters", 900, 1)).ToList();
+
+          foreach (var employee in employees)
+            {
+                Console.WriteLine($"First name is: {employee.FirstName}, and last name is: {employee.LastName}");            }
+
+
+
+            Console.WriteLine("_____________________________________________________");
 
             Console.WriteLine();
 
